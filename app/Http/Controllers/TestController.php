@@ -26,7 +26,13 @@ class TestController extends Controller
     {
         // $request = Request::create('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow');
         $json = json_decode(file_get_contents('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow'), true);
-        dd($json->query->pages);
+
+        //dd($json);
+        foreach($json['query']['pages'] as $reponse=>$value)
+        {
+            dd($value['extract']);
+        }
+
 
     }
 

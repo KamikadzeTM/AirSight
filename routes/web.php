@@ -19,4 +19,4 @@ Route::get('test', function () {
     return "this is AAAAA test";
 });
 
-Route::get('/testControl', 'TestController@getWikiText');
+Route::get('/testControl', 'TestController@testFunc');
