@@ -23,33 +23,18 @@ class TestController extends Controller
 
     }
 
-    public function jsTest()
-    {
-       // if ($jsText!=null)
-        //    dd($jsText);
-        return view('jstest');
-    }
 
-    public function jsPost(Request $request)
-    {
-        $jsText = $request->input('JStext');
-        //return view('jstest',compact('request'));
-    }
-    public function requestWiki()
-    {
-        return "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow";
-            //Redirect::to("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow");
-    }
 
-    public static function getWikiText(Request $request)
+    public static function getWikiText()
     {
+        $param = Input::get('locName');
         // $request = Request::create('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow');
-        $json = json_decode(file_get_contents('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow'), true);
+        $json = json_decode(file_get_contents('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.urlencode($param)), true);
 
         //dd($json);
         foreach($json['query']['pages'] as $reponse=>$value)
         {
-            dd($value['extract']);
+            return response()->json([ 'extract'=>$value['extract'] ]);   //$value['extract']
         }
     }
 

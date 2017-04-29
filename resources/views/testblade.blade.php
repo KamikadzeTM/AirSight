@@ -17,9 +17,12 @@
          padding: 0;
       }
    </style>
-   <!-- this includes javascript file-->
-   <script type="text/javascript" src="{{ URL::asset('js/testJS.js') }}"></script>
+   <script
+           src="http://code.jquery.com/jquery-1.12.4.min.js"
+           integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+           crossorigin="anonymous"></script>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFZ6geFJkMoNyZhOBVIVNl2_yfdXORaUc&libraries=places&callback=initMap" async defer></script>
+
    <script>
        // This example requires the Places library. Include the libraries=places
        // parameter when you first load the API. For example:
@@ -111,46 +114,25 @@
                map: map,
                position: place.geometry.location
            });
-           var text = httpGetAsync("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow");
-           //alert(text);
 
-           google.maps.event.addListener(marker, 'click', function() {
-               var contentString = place.name + "<br>" + place.vicinity;
-
-               infowindow.setContent(contentString);
-               infowindow.open(map, this);
+           var req = $.ajax({
+               type: "GET",
+               url: '/wikinfo',
+               data: {locName: place.name} //location name
            });
 
+           req.done(function (data) {
+               wikiText = data.extract;
+               alert(wikiText);
+               google.maps.event.addListener(marker, 'click', function() {
+                   //alert(wikiText);
+                   var contentString = place.name + "<br>" + wikiText;
+
+                   infowindow.setContent(contentString);
+                   infowindow.open(map, this);
+               });
+           });
        }
-
-       function parseReponse(jsonText)
-       {
-           var response = JSON.parse(jsonText);
-           alert("Hello!");
-           alert(response[1][0][0].extract);
-           return response.query;
-       }
-
-
-       function httpGetAsync(theUrl)
-       {
-
-           var xmlHttp = new XMLHttpRequest();
-           var wikiText;
-           xmlHttp.onreadystatechange = function() {
-               if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-               {
-                   wikiText = parseReponse(xmlHttp.responseText);
-                   alert("Success!");
-               }
-               //alert(xmlHttp.status);
-
-           };
-           xmlHttp.open("GET", theUrl, true); // true for asynchronous
-           xmlHttp.send();
-           return wikiText;
-       }
-
 
 
    </script>
@@ -164,9 +146,6 @@
    <input type="number" value="0" name="pathIndex" min="0" max="19">
    <input type="submit"  value="Choose">
 </form>
-
-<!-- this writes value returned from JS function-->
-<!--<script>document.write( myFunc())</script>-->
 
 
 </body>
