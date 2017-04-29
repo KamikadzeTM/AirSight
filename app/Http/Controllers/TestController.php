@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 
 class TestController extends Controller
 {
+    //public $jsText;
 
     public  function testFunc()
     {
@@ -22,6 +23,24 @@ class TestController extends Controller
 
     }
 
+    public function jsTest()
+    {
+       // if ($jsText!=null)
+        //    dd($jsText);
+        return view('jstest');
+    }
+
+    public function jsPost(Request $request)
+    {
+        $jsText = $request->input('JStext');
+        //return view('jstest',compact('request'));
+    }
+    public function requestWiki()
+    {
+        return "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow";
+            //Redirect::to("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow");
+    }
+
     public static function getWikiText(Request $request)
     {
         // $request = Request::create('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow');
@@ -32,8 +51,6 @@ class TestController extends Controller
         {
             dd($value['extract']);
         }
-
-
     }
 
 }

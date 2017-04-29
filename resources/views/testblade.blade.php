@@ -111,8 +111,8 @@
                map: map,
                position: place.geometry.location
            });
-           var text = httpGetAsync('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow');
-
+           var text = httpGetAsync("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow");
+           //alert(text);
 
            google.maps.event.addListener(marker, 'click', function() {
                var contentString = place.name + "<br>" + place.vicinity;
@@ -123,6 +123,15 @@
 
        }
 
+       function parseReponse(jsonText)
+       {
+           var response = JSON.parse(jsonText);
+           alert("Hello!");
+           alert(response[1][0][0].extract);
+           return response.query;
+       }
+
+
        function httpGetAsync(theUrl)
        {
 
@@ -130,20 +139,19 @@
            var wikiText;
            xmlHttp.onreadystatechange = function() {
                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+               {
                    wikiText = parseReponse(xmlHttp.responseText);
+                   alert("Success!");
+               }
+               //alert(xmlHttp.status);
+
            };
            xmlHttp.open("GET", theUrl, true); // true for asynchronous
-           xmlHttp.send(null);
+           xmlHttp.send();
            return wikiText;
        }
 
-       function parseReponse(jsonText)
-       {
-           var response = JSON.parse(xhr.responseText);
-           alert("Hello!");
-           alert(response[1][0][0].extract);
-           return response.query;
-       }
+
 
    </script>
 </head>

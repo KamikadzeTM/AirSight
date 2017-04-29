@@ -20,3 +20,6 @@ Route::get('test', function () {
 });
 
 Route::get('/testControl', 'TestController@testFunc');
+Route::get('jscript', 'TestController@jsTest');
+Route::post('wikiPost', 'TestController@jsPost');
+Route::get('wikinfo', 'TestController@requestWiki');
