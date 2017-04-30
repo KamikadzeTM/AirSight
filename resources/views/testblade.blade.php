@@ -17,10 +17,6 @@
          padding: 0;
       }
    </style>
-   <script
-           src="http://code.jquery.com/jquery-1.12.4.min.js"
-           integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-           crossorigin="anonymous"></script>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFZ6geFJkMoNyZhOBVIVNl2_yfdXORaUc&libraries=places&callback=initMap" async defer></script>
 
    <script>
@@ -114,24 +110,23 @@
                map: map,
                position: place.geometry.location
            });
-
+            /*
            var req = $.ajax({
                type: "GET",
                url: '/wikinfo',
                data: {locName: place.name} //location name
-           });
+           });*/
 
-           req.done(function (data) {
-               wikiText = data.extract;
-               alert(wikiText);
-               google.maps.event.addListener(marker, 'click', function() {
-                   //alert(wikiText);
-                   var contentString = place.name + "<br>" + wikiText;
+           //req.done(function (data) {
 
-                   infowindow.setContent(contentString);
-                   infowindow.open(map, this);
-               });
-           });
+            google.maps.event.addListener(marker, 'click', function() {
+                //alert(wikiText);
+                var contentString = place.name + "<br>" + place.vicinity;
+
+                infowindow.setContent(contentString);
+                infowindow.open(map, this);
+            });
+           //});
        }
 
 
