@@ -84,6 +84,15 @@
 
            var geoIndex = {{ $flightPathIndex  }}  ;
            var location = flightPlanCoordinates[geoIndex];
+
+           var image = 'tr2.png';
+           var planeMarker = new google.maps.Marker({
+               position: location,
+               map: map,
+               icon: image
+           });
+
+
            infowindow = new google.maps.InfoWindow();
            var service = new google.maps.places.PlacesService(map);
            service.nearbySearch({
@@ -140,6 +149,7 @@
    Choose path point:
    <input type="number" value="0" name="pathIndex" min="0" max="19">
    <input type="submit"  value="Choose">
+   <img src="tr2.png" >
 </form>
 
 
