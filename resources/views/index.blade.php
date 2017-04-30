@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>AirLines</title>
+    <title>AirSight</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{asset('css/reset.css')}}" type="text/css" media="all">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}" type="text/css" media="all">
@@ -24,6 +24,19 @@
                 zoom: 10
             });
 
+
+            var element = document.getElementById('txtfieldFrom');
+            element.value= "Marceille";
+            element = document.getElementById('txtfieldTo');
+            element.value= "Dublin";
+            element = document.getElementById('dateDepart');
+            element.value= "04/30/2017";
+            element = document.getElementById('timeDepart');
+            element.value= "09:52";
+            element = document.getElementById('flightDuration');
+            element.value= "01:11";
+            element = document.getElementById('flightETA');
+            element.value= "11:03";
             //path geolocations
             /*var flightPlanCoordinates = [
              {lat:48.961468,lng: 2.437183},
@@ -117,6 +130,7 @@
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, this);
+                document.getElementById("info-segment").style.visibility = "visible";
             });
         }
 
@@ -129,8 +143,8 @@
 <div class="body1">
     <div class="main">
         <header>
-            <div class="wrapper">
-                <h1><a href="index.html" id=""></a><span id=""></span></h1>
+            <div class="wrapper headings">
+                <h1>AirSight</h1>
 
             </div>
         </header>
@@ -151,21 +165,21 @@
 
                         <div class="wrapper"> Leaving From:
                             <div class="bg">
-                                <input type="text" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
+                                <input type="text" id="txtfieldFrom" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
                             </div>
                         </div>
                         <div class="wrapper"> Going To:
                             <div class="bg">
-                                <input type="text" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
+                                <input type="text" id="txtfieldTo" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
                             </div>
                         </div>
                         <div class="wrapper"> Departure Date and Time:
                             <div class="wrapper">
                                 <div class="bg left">
-                                    <input type="text" class="input input2" value="mm/dd/yyyy " onBlur="if(this.value=='') this.value='mm/dd/yyyy '" onFocus="if(this.value =='mm/dd/yyyy ' ) this.value=''">
+                                    <input type="text" id="dateDepart" class="input input2" value="mm/dd/yyyy " onBlur="if(this.value=='') this.value='mm/dd/yyyy '" onFocus="if(this.value =='mm/dd/yyyy ' ) this.value=''">
                                 </div>
                                 <div class="bg right">
-                                    <input type="text" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
+                                    <input type="text" id="timeDepart" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
                                 </div>
                             </div>
                         </div>
@@ -180,15 +194,15 @@
                             <div class="wrapper">
 
                                 <div class="bg right">
-                                    <input type="text" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
+                                    <input type="text" id="flightDuration" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
                                 </div>
                             </div>
                         </div>
-                        <div class="wrapper"> Flight duration:
+                        <div class="wrapper"> ETA:
                             <div class="wrapper">
 
                                 <div class="bg right">
-                                    <input type="text" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
+                                    <input type="text" id="flightETA" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
                                 </div>
                             </div>
                         </div>
@@ -203,12 +217,19 @@
                     </form>
                     <form method="GET" action="/">
                         Choose flight progress:
-                        <input type="range" value="0" name="pathIndex" min="0" max="19">
+                        <input type="range"  name="pathIndex" min="0" max="19"
+                               value=
+                               @if($flightPathIndex!=null)
+                                       "{{$flightPathIndex}}"
+                               @else
+                                    "0"
+                               @endif
+                                >
                         <input type="submit"  value="Choose">
 
                     </form>
-                    <h2>We are now over            </h2>
-
+                    <h2>We are now over Paris  </h2>
+                    <div id="info-segment" class="info-segment">The Catacombs of Paris are underground ossuaries in Paris, France, which hold the remains of more than six million people in a small part of the ancient Mines of Paris tunnel network.</div>
                 </div>
             </article>
             <article class="col2 pad_left1">

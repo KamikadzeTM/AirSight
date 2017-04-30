@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
+
 article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video {
 	display:block;
 }
@@ -12,7 +15,7 @@ mark, rp, rt, ruby, summary, time {
 }
 .wrapper {
 	width:100%;
-	overflow:hidden;
+	overflow: hidden;
 }
 body {
 	background:#fff;
@@ -44,6 +47,10 @@ body {
 	behavior:url(../js/PIE.htc);
 	position:relative;
 }
+
+.headings {
+	overflow: visible !important;
+}
 .main {
 	margin:0 auto;
 	width:1000px;
@@ -63,13 +70,13 @@ a:hover {
 	text-decoration:none;
 }
 h1 {
-	font-size:20px;
+	font-size:52px;
 	font-weight:400;
-	text-transform:uppercase;
 	line-height:26px;
 	color:#fff;
-	float:left;
-	padding:23px 0 0 58px;
+	font-family: "Fjalla One";
+	text-align: center;
+	padding:50px 0 0 58px;
 }
 h2 {
 	font-size:28px;
@@ -399,4 +406,7 @@ footer {
 }
 a {
 	outline:none;
+}
+.info-segment {
+	visibility: hidden;
 }
