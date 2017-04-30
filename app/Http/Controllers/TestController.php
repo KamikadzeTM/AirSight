@@ -12,14 +12,13 @@ class TestController extends Controller
     public  function testFunc()
     {
         $flightPathIndex = null;
-        $variable = [ 0=> 'Test array', 1 => 'Second Object'];
 
         if (Input::has('pathIndex'))
         {
             $flightPathIndex = Input::get('pathIndex');
         }
 
-        return view('testblade',compact('flightPathIndex'));
+        return view('index',compact('flightPathIndex'));
 
     }
 

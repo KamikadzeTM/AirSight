@@ -151,7 +151,7 @@
 
 
 <form method="GET" action="/testControl">
-   Choose path point:
+   Choose flight progress:
    <input type="range" value="0" name="pathIndex" min="0" max="19">
    <input type="submit"  value="Choose">
 
