@@ -17,6 +17,7 @@
          padding: 0;
       }
    </style>
+
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFZ6geFJkMoNyZhOBVIVNl2_yfdXORaUc&libraries=places&callback=initMap" async defer></script>
 
    <script>
@@ -71,6 +72,8 @@
                {lat:53.198768,lng: -6.111328},
                {lat:53.421075,lng: -6.269945}
            ];
+
+
            var flightPath = new google.maps.Polyline({
                path: flightPlanCoordinates,
                geodesic: true,
@@ -85,7 +88,7 @@
            var geoIndex = {{ $flightPathIndex  }}  ;
            var location = flightPlanCoordinates[geoIndex];
 
-           var image = 'tr2.png';
+           var image = "{{asset('images/tr2-small.png')}}";
            var planeMarker = new google.maps.Marker({
                position: location,
                map: map,
@@ -107,17 +110,19 @@
 
        function callback(results, status) {
            if (status === google.maps.places.PlacesServiceStatus.OK) {
+               var image = "{{asset('images/map_marker.png')}}";
                for (var i = 0; i < results.length; i++) {
-                   createMarker(results[i]);
+                   createMarker(results[i],image);
                }
            }
        }
 
-       function createMarker(place) {
+       function createMarker(place,image) {
            var placeLoc = place.geometry.location;
            var marker = new google.maps.Marker({
                map: map,
-               position: place.geometry.location
+               position: place.geometry.location,
+               icon: image
            });
             /*
            var req = $.ajax({
@@ -147,9 +152,11 @@
 
 <form method="GET" action="/testControl">
    Choose path point:
-   <input type="number" value="0" name="pathIndex" min="0" max="19">
+   <input type="range" value="0" name="pathIndex" min="0" max="19">
    <input type="submit"  value="Choose">
-   <img src="tr2.png" >
+
+   <!--<img src="{{asset('images/tr2-small.png')}}" >
+   <img src="{{asset('images/map_marker.png')}}" > -->
 </form>
 
 
